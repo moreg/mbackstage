@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mys.mbackstage.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.mys.mbackstage.model.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="adminrole" jdbcType="VARCHAR" property="adminrole" />
+    <result column="addtime" jdbcType="VARCHAR" property="addtime" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
+    <result column="permission" jdbcType="VARCHAR" property="permission" />
+    <collection property="roles" ofType="com.mys.mbackstage.model.Role">
+      <id property="id" column="id"/>
+      <result property="rolename" column="rolename"/>
+      <collection property="permissions" ofType="com.mys.mbackstage.model.Permission">
+        <id property="id" column="id"/>
+        <result property="permissionname" column="permissionname"/>
+      </collection>
+    </collection>
+
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, username, password, name, remarks, state, adminrole, addtime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectUsers" resultType="com.mys.mbackstage.model.User">
+    SELECT
+    *
+    FROM
+    user
+  </select>
+  <select id="findPermissionByUserName" parameterType="string" resultType="java.lang.String">
+    SELECT permissionname FROM user u,role r,permission p,user_role ur,role_permission rp
+           WHERE u.id=ur.userid
+           AND r.id = ur.roleid
+           AND r.id = rp.roleid
+		  AND p.id = rp.permissionid
+		  AnD u.username = #{username}
+
+  </select>
+  <select id="findByUserName" parameterType="string" resultMap="BaseResultMap">
+  select * from user where username = #{username}
+  </select>
+  <select id="countUser" resultType="java.lang.Integer">
+  select count(*) from user
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mys.mbackstage.model.User">
+    insert into user (id, username, password, 
+      name, remarks, state, 
+      adminrole, addtime)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
+      #{adminrole,jdbcType=VARCHAR}, #{addtime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mys.mbackstage.model.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="adminrole != null">
+        adminrole,
+      </if>
+      <if test="addtime != null">
+        addtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="adminrole != null">
+        #{adminrole,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mys.mbackstage.model.User">
+    update user
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="adminrole != null">
+        adminrole = #{adminrole,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        addtime = #{addtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mys.mbackstage.model.User">
+    update user
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      adminrole = #{adminrole,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

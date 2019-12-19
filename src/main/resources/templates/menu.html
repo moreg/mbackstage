@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 全局js -->
+    <script th:src="@{/js/jquery.min.js}" ></script>
+    <script th:src="@{/js/bootstrap.min.js}" ></script>
+    <script  th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}" ></script>
+    <script  th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}" ></script>
+    <script  th:src="@{/js/plugins/layer/layer.min.js}" ></script>
+    <script>
+        //菜单循环遍历打印拼接操作
+        $(function () {
+            $.ajax( {
+                url : '/menu',
+                type : 'post',
+                dataType : 'json',
+                success : function(data) {
+
+                    var j = JSON.parse(data);
+                    alert(j)
+
+
+
+                    var menu = ""; //定义变量存储
+                    for(var i = 0;i<data.length;i++){
+                        menu += "<li class='layui-nav-item '>"
+                        if(data[i].parentId == 0){ //取出父元素的菜单，拼进页面
+                            menu +=        "<a href='javascript:;'>"+data[i].name+"</a>"
+
+                        }
+                        menu +=    "</li>";
+                    }
+                    $("#nav").html(menu);
+
+                }
+            });
+        })
+
+    </script>
+</head>
+<body>
+    <div id="nav"></div>
+
+
+
+
+
+    <!-- 第三方插件 -->
+    <script th:src="@{/js/plugins/pace/pace.min.js}" ></script>
+</body>
+
+</html>
