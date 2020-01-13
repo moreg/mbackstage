@@ -1,6 +1,6 @@
 package com.mys.meisiniu.service.impl;
 
-import com.mys.meisiniu.dao.MenuMapper;
+import com.mys.meisiniu.dao.MenuDao;
 import com.mys.meisiniu.model.Menu;
 import com.mys.meisiniu.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import java.util.*;
 public class MenuServiceImpl  implements MenuService {
 
     @Autowired
-    private MenuMapper menuMapper;
+    private MenuDao menuMapper;
     @Override
     public Comparator<Menu> order() {
         Comparator<Menu> comparator = new Comparator<Menu>() {
@@ -60,6 +60,8 @@ public class MenuServiceImpl  implements MenuService {
         }
         return null;
     }
+
+
     /**
      * 获取子节点
      * @param id 父节点id
@@ -87,5 +89,11 @@ public class MenuServiceImpl  implements MenuService {
             return new ArrayList<Menu>();
         }
         return childList;
+    }
+
+    @Override
+    public List<Map> getMenuLsit() {
+        List<Map> list = menuMapper.getMenuList();
+        return list;
     }
 }

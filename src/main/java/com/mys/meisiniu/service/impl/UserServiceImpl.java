@@ -2,7 +2,7 @@ package com.mys.meisiniu.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.mys.meisiniu.dao.UserMapper;
+import com.mys.meisiniu.dao.UserDao;
 import com.mys.meisiniu.model.User;
 import com.mys.meisiniu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import java.util.Set;
 public class UserServiceImpl implements UserService {
     @Autowired
 
-    private UserMapper userMapper;
+    private UserDao userMapper;
 
     @Override
     public PageInfo<User> findAllUser(int pageNum, int pageSize) {

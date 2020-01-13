@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mys.meisiniu.dao.MenuMapper">
+<mapper namespace="com.mys.meisiniu.dao.MenuDao">
     <resultMap id="BaseResultMap" type="com.mys.meisiniu.model.Menu">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="name" jdbcType="VARCHAR" property="name" />
@@ -23,5 +23,8 @@
         LEFT JOIN `user` us on us.id = ur.userid
         WHERE us.username = #{username}
     </select>
-
+    <select id="getMenuList" resultType="Map">
+        SELECT  sy.id,sy.`name`,sy.parentId,sy.`order`,sy.url,sy.icon
+        FROM sys_menu sy
+    </select>
 </mapper>

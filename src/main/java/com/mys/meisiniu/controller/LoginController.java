@@ -43,6 +43,7 @@ public class LoginController {
             subject.login(token);
             List<Menu> menu = menuService.findTree(username);
             session.setAttribute("muneList",menu);
+            session.setAttribute("username",username);
             return "index";
         }  catch (IncorrectCredentialsException e) {
             msg = "登录密码错误. Password for account " + token.getPrincipal() + " was incorrect.";

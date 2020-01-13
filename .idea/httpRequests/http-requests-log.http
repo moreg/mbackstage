@@ -1,3 +1,21 @@
+GET http://localhost:8080/menu/menujson
+Accept: */*
+Cache-Control: no-cache
+Authorization: Basic dXNlcjoxMjM0NTY=
+
+<> 2020-01-13T042013.200.txt
+
+###
+
+GET http://localhost:8080/menu/menujosn
+Accept: */*
+Cache-Control: no-cache
+Authorization: Basic dXNlcjoxMjM0NTY=
+
+<> 2020-01-13T041953.404.json
+
+###
+
 POST http://localhost:8080
 Accept: */*
 Cache-Control: no-cache
