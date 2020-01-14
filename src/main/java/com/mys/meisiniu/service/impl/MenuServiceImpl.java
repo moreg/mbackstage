@@ -92,8 +92,8 @@ public class MenuServiceImpl  implements MenuService {
     }
 
     @Override
-    public List<Map> getMenuLsit() {
-        List<Map> list = menuMapper.getMenuList();
+    public List<Menu> getMenuLsit() {
+        List<Menu> list = menuMapper.getMenuList();
         return list;
     }
 }

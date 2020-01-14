@@ -13,5 +13,5 @@ public interface MenuService {
     public Comparator<Menu> order();
     public List<Menu> findTree(String username);
     public List<Menu> getChild(String id, List<Menu> allMenu);
-    public List<Map> getMenuLsit();
+    public List<Menu> getMenuLsit();
 }

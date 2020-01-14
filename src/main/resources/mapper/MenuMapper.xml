@@ -23,7 +23,7 @@
         LEFT JOIN `user` us on us.id = ur.userid
         WHERE us.username = #{username}
     </select>
-    <select id="getMenuList" resultType="Map">
+    <select id="getMenuList" resultMap="BaseResultMap">
         SELECT  sy.id,sy.`name`,sy.parentId,sy.`order`,sy.url,sy.icon
         FROM sys_menu sy
     </select>

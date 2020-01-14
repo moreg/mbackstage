@@ -66,14 +66,21 @@
                                   <th width="250">操作</th>
                               </thead>
 
-                              <tbody class="x-cate" th:each="menulist,menu:${menus}">
-                                <tr th:fid='${menulist.getParentId()}'>
+                              <tbody class="x-cate" th:each="menulist,menu:${menu}">
+                                <tr th:cate-id='${menu.count}' th:fid='${menulist.getParentId()}'>
                                   <td>
                                     <input type="checkbox" name="" lay-skin="primary">
                                   </td>
                                   <td th:text="${menulist.getId()}"></td>
                                   <td>
-                                    <i class="layui-icon x-show" status='true'>&#xe623;</i>
+                                      <span th:if="${menulist.getParentId() ne '0'}">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                      <span th:switch="${#lists.isEmpty(menulist.getChildren())}">
+
+                                          <span th:case="true" ><i class="layui-icon x-show" status='true'>&#xe623;  </i></span>
+                                          <span th:case="false" > &nbsp;&nbsp;&nbsp;&nbsp;├</span>
+
+                                      </span>
+
                                       <span th:text="${menulist.getName()}"></span>
                                   </td>
                                   <td><input type="text" class="layui-input x-sort" name="order" th:value="${menulist.getOrder()}" ></td>

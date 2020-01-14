@@ -7,5 +7,5 @@ import java.util.Map;
 
 public interface MenuDao {
      List<Menu> findTree(String usernmae);
-     List<Map> getMenuList();
+     List<Menu> getMenuList();
 }

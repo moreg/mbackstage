@@ -30,7 +30,7 @@ public class MenuController {
     @RequestMapping(value = "/menujson")
     @ResponseBody
     public String menujson(HttpSession session){
-        List<Map> menu = menuService.getMenuLsit();
+        List<Menu> menu = menuService.getMenuLsit();
         String json = JSON.toJSONString(menu);
         JSONObject jsonMenu = new JSONObject();
         JSONObject jsonMenu2 = new JSONObject();
@@ -39,14 +39,14 @@ public class MenuController {
         jsonMenu.put("status",jsonMenu2);
         jsonMenu.put("data",json);
         System.out.println(jsonMenu);
-        return jsonMenu.toString();
+        return json.toString();
     }
-    @RequestMapping(value = "/menuLsit")
+    @RequestMapping(value = "/menuList")
     public String menuLsit(HttpSession session, Model model){
       //  String username = session.getAttribute;
         List<Menu> menu = menuService.findTree("user");
-        System.out.println(menu);
-        session.setAttribute("smenus",menu);
+        List<Menu> menuslist = menuService.getMenuLsit();
+        model.addAttribute("menu",menuslist);
         model.addAttribute("menus",menu);
         model.addAttribute("abc","123456");
         return "/menu/sysMenu";
